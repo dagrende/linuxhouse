@@ -1,0 +1,17 @@
+#!/bin/bash
+read addr value <<EOF
+$*
+EOF
+shopt -s extglob
+
+# find out what to set
+owaddr=${addr%%-+([0-9])}
+lastvalue=$[0x`cat last-value-$owaddr`]
+bit=${addr##+([0-9A-Z])-}
+bitmask=$[1 << $bit]
+newvalue=$[($lastvalue & ~$bitmask) | (!$value << $bit)]
+newvalue16=`echo "obase=16;ibase=10; $newvalue" | bc`
+if [[ $newvalue < 16 ]]; then
+	newvalue16=0$newvalue16
+fi
+./sendavrowcmd "s $owaddr $newvalue16"

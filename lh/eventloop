@@ -1,0 +1,15 @@
+#!/bin/bash
+cd "`dirname $0`"
+while true; do
+	read what type addr value time || break
+	echo `date "+%y-%m-%d %H:%M:%S"`: what $what type $type addr $addr value $value time $time
+	if [ "$what" = "err" ]; then
+		echo error
+	elif [[ "$what" = "e" && "$type" = "change" ]]; then
+		devicetype=${addr:0:2}
+		commandfile="event-$devicetype"
+		if [ -x $commandfile ]; then
+			./$commandfile $type $devicetype $addr $value $time
+		fi
+	fi
+done

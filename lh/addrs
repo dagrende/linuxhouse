@@ -1,0 +1,16 @@
+10E4790600000099	outdoor temp (under entré)
+100EE90700000047	indoor temp (hall cupboard)
+059CC81600000028	postbox out switch
+057CAC160000000F	garage lock switch
+054AB116000000C0	entré open switch
+0596B11600000079	entré lock switch
+05F6A502000000EF	postbox in switch
+050EA702000000BF	cellar door open switch
+0549A40200000001	heater relay
+05F3A70200000087	cellar lock switch
+05F7AF1600000053	garage thief lock switch
+47000000000002C8-0	green lamp relay
+47000000000002C8-1	red lamp relay
+47000000000002C8-2	-
+47000000000002C8-3	-
+47000000000002C8-4	heater button

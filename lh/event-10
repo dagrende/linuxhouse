@@ -1,0 +1,9 @@
+#!/bin/bash
+read evtype devicetype addr value time <<EOF
+$*
+EOF
+commandfile="device-change-$addr"
+echo $value >last-value-$addr
+if [ -x $commandfile ]; then
+	./$commandfile $addr $[((0x$value+128)%256-128)/2] $time
+fi

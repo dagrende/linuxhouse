@@ -1,0 +1,13 @@
+#!/bin/bash
+read addr <<EOF
+$*
+EOF
+shopt -s extglob
+
+# find out what to set
+owaddr=${addr%%-+([0-9])}
+lastvalue=$[0x`cat last-value-$owaddr`]
+bit=${addr##+([0-9A-Z])-}
+bitmask=$[1 << $bit]
+value=$[!!($lastvalue & $bitmask)]
+exit $value

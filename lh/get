@@ -1,0 +1,11 @@
+#!/bin/bash
+read addr value <<EOF
+$*
+EOF
+cd "`dirname $0`"
+
+devicetype=${addr:0:2}
+getcommand="get-$devicetype"
+if [[ -x $getcommand ]]; then
+	./$getcommand $addr $value
+fi

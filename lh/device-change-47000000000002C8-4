@@ -1,0 +1,11 @@
+# device-change-xx addr value
+if [[ $2 = "1" ]]; then
+	# button down event
+	if ./get 0549A40200000001; then
+		# switch heater relay off
+		./set 0549A40200000001 0
+	else
+		# switch heater relay 0n
+		./set 0549A40200000001 1
+	fi
+fi

@@ -1,0 +1,13 @@
+./set 47000000000002C8-1 $2
+pidfile=heater-turn-off-timer-pid
+# kill any timer
+if [[ -e $pidfile ]]; then
+	echo remove turn-off timer before time out
+	kill `cat $pidfile`
+	rm $pidfile
+fi
+
+if [[ $2 = '1' ]]; then
+	echo start turn-off timer
+	(sleep 1.5h; echo turn-off by timer; ./set 0549A40200000001 0; rm $pidfile)& echo $! >$pidfile
+fi

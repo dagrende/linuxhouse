@@ -1,0 +1,7 @@
+#!/bin/bash
+read addr <<EOF
+$*
+EOF
+
+lastvalue=`cat last-value-$addr`
+echo $[((0x$lastvalue+128)%256-128)/2]

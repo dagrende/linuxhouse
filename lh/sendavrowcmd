@@ -1,0 +1,16 @@
+#!/bin/bash
+# sendavrowcmd cmd
+LOCK_FILE=/tmp/.sendavrowlock
+
+while true; do
+	(set -C; : > $LOCK_FILE) 2> /dev/null
+	if [ $? != "0" ]; then
+		sleep 0.01
+	else
+		break
+	fi
+done
+
+echo -n $1$'\r' >$AVROW
+
+trap 'rm $LOCK_FILE' EXIT

@@ -1,0 +1,7 @@
+if ./get 05F3A70200000087 && ./get 057CAC160000000F && ./get 0596B11600000079; then
+	# set green lamp on
+	./set 47000000000002C8-0 1
+else
+	# set green lamp off
+	./set 47000000000002C8-0 0
+fi

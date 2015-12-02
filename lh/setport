@@ -1,0 +1,1 @@
+stty -F/dev/ttyUSB0 19200 raw -crtscts cs8 -cstopb -echo

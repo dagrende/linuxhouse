@@ -1,0 +1,5 @@
+#!/bin/bash
+cd `dirname $0`
+export AVROW=/dev/ttyUSB0
+./setport
+./eventloop <$AVROW >>eventloop.log 2>&1 & echo $! >runloop.pid

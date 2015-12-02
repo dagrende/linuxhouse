@@ -1,0 +1,29 @@
+lh - Linux House control
+
+Uses an avrow device connected to /dev/ttyUSB0
+
+export AVROW=/dev/ttyUSB0
+
+Start with 
+	./eventloop <$AVROW
+
+Serial device setting
+stty -F$AVROW 19200 raw -crtscts cs8 -cstopb -echo
+
+Commands
+get addr - returns status 0 if device is set, 1 otherwise
+set addr value - sets device at addr to value that has value 0 or 1
+
+to catch change events, create an executable file named device-change-addr where addr is the address of the device to listen to.
+On a device value change, the file is executed as
+	device-change-addr evtype addr value time
+The args are
+	evtype - arr or change
+	addr - the address of the device (see addr)
+	value - 0 for off or 1 for on
+	time - a two digit hex number for the time at the event. The time is in a unit faster than seconds and used for debugging
+
+Addresses
+The addresses are 1-wire addresses for normal 1-wire devices. For a type 47 device the adress is of the form 
+owaddr-b where owaddr is the 1-wire device address and b is a bit number in the device from 0 to 4.
+

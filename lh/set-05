@@ -1,0 +1,11 @@
+#!/bin/bash
+read addr value <<EOF
+$*
+EOF
+
+if [[ "$value" = "1" ]]; then
+	newvalue16="00"
+else
+	newvalue16="FF"
+fi
+./sendavrowcmd "s $addr $newvalue16"

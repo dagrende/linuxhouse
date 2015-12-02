@@ -1,0 +1,24 @@
+#!/bin/bash
+read evtype devicetype addr value time <<EOF
+$*
+EOF
+#echo addr=$evtype
+lastvalue10=$[0x`cat last-value-$addr`]
+echo $value >last-value-$addr
+value10=$[0x$value]
+# find differences bit by bit
+bit=0
+while [[ $bit < 8 ]]; do
+	lvb0=$[lastvalue10 % 2]
+	vb0=$[value10 % 2]
+#	echo $lvb0 $vb0
+	if [[ $lvb0 != $vb0 ]]; then
+		commandfile="device-change-$addr-$bit"
+		if [[ -x $commandfile ]]; then
+			./$commandfile $addr $[!$vb0] $time
+		fi
+	fi
+	lastvalue10=$[lastvalue10 / 2]
+	value10=$[value10 / 2]
+	bit=$[$bit + 1]
+done

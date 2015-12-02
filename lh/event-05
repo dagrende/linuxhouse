@@ -1,0 +1,14 @@
+#!/bin/bash
+read evtype devicetype addr value time <<EOF
+$*
+EOF
+commandfile="device-change-$addr"
+prevvalue=`cat last-value-$addr`
+if [ "$value" != "$prevvalue" ]; then
+	# value has changed
+	echo $value >last-value-$addr
+	if [ -x $commandfile ]; then
+		# there is an executable change handler for this device
+		./$commandfile $addr $[!0x$value] $time
+	fi
+fi

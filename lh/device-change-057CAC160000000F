@@ -1,0 +1,6 @@
+#!/bin/bash
+read addr state time <<EOF
+$*
+EOF
+
+./update-lamp
