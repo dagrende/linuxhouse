@@ -1,0 +1,1 @@
+../avrisp/avrisp -e -v -w avrow.rom
